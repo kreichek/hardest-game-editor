@@ -1,0 +1,7 @@
+This is my Fundamentals of Programming (15-112 - Fall 2013) term project at Carnegie Mellon University. It is a re-creation of the popular flash game "The World's Hardest Game." In addition to a fully functional game, it includes a level editor that can be used to create a large variety of different levels to play. Detailed instructions on how to actually use the program can be found under Instructions in the main menu of the program.
+
+To run the project, compile the file “hardest-game-editor.py” (Python 2.7).
+
+The only dependency to run the game is pygame, which is a Python module that can be downloaded here: http://www.pygame.org/download.shtml.
+
+A demonstration of the project can be found here: http://www.youtube.com/watch?v=r-ocHqYg7qM
