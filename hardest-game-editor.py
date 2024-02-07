@@ -136,7 +136,7 @@ class mainMenu(object):
     def enemyMove(self):
         #moves the enemies
         length = enemy.image.get_rect()[3]
-        for i in xrange(len(self.enemyLocation)):
+        for i in range(len(self.enemyLocation)):
             xLoc,yLoc = self.enemyLocation[i]
             self.enemyLocation[i][0] += self.enemyMovement[i][0]
             self.enemyLocation[i][1] += self.enemyMovement[i][1]
@@ -453,8 +453,8 @@ class gameMode(object):
     def initMulti(self):
         #initilizes multimedia
         pygame.mixer.init()
-        self.hit = pygame.mixer.Sound("Sound\hit.wav")
-        self.ching = pygame.mixer.Sound("Sound\coin.wav")
+        self.hit = print("hit")
+        self.ching = print("coin")
         fontSize = 80
         self.myfont = pygame.font.SysFont("Arial", fontSize)
 
@@ -488,16 +488,16 @@ class gameMode(object):
         self.cEnemyAngle = copy.deepcopy(self.data["cEnemyAngle"])
         self.cEnemySpeed = copy.deepcopy(self.data["cEnemySpeed"])
         self.greenZoneCoords = copy.deepcopy(self.data["greenZoneCoords"])
-        self.greenZoneBools=[False for i in xrange(len(self.greenZoneCoords))]
+        self.greenZoneBools=[False for i in range(len(self.greenZoneCoords))]
         self.coinLocs = copy.deepcopy(self.data["coinLocs"])
         self.leftBorder = copy.deepcopy(self.data["leftBorder"])
         self.rightBorder = copy.deepcopy(self.data["rightBorder"])
         self.topBorder = copy.deepcopy(self.data["topBorder"])
         self.bottomBorder = copy.deepcopy(self.data["bottomBorder"])
         self.player = player(self.playerLocation)
-        self.linCurrentBounds = [0 for i in xrange(len(self.linEnemyBounds))]
-        self.linEnemyTime = [[-1,0] for i in xrange(len(self.linEnemyBounds))]
-        self.cEnemyLocation = [[0,0] for i in xrange(len(self.cEnemyCenter))]
+        self.linCurrentBounds = [0 for i in range(len(self.linEnemyBounds))]
+        self.linEnemyTime = [[-1,0] for i in range(len(self.linEnemyBounds))]
+        self.cEnemyLocation = [[0,0] for i in range(len(self.cEnemyCenter))]
         self.boardCoords = copy.deepcopy(self.data["boardCoords"])
         self.initCoins()
         self.createBorderSprite()
@@ -508,7 +508,7 @@ class gameMode(object):
         self.greenZoneDraw = pygame.sprite.Group()
         self.greenZoneGroup = []
         self.boardSprite = pygame.sprite.Group()
-        for i in xrange(len(self.greenZoneCoords)):
+        for i in range(len(self.greenZoneCoords)):
             greenZoneSprite = greenZone(self.greenZoneCoords[i],
                 (self.boardCellSize,self.boardCellSize))
             self.greenZoneGroup.append(greenZoneSprite)
@@ -631,12 +631,12 @@ class gameMode(object):
         """Creates all instances of the enemy sprite"""
         count = 0
         self.enemyGroup = pygame.sprite.Group()
-        for i in xrange(len(self.linEnemyLocation)):
+        for i in range(len(self.linEnemyLocation)):
             self.enemyGroup.add(enemy(self.linEnemyLocation[i]))
             self.enemyLinearMotion(count)
             count += 1
         count = 0
-        for i in xrange(len(self.cEnemyLocation)):
+        for i in range(len(self.cEnemyLocation)):
             self.enemyGroup.add(enemy(self.cEnemyLocation[i]))
             self.enemyCircularMotion(count)
             count += 1
@@ -672,7 +672,7 @@ class gameMode(object):
         if dx != 0: dx *= self.linEnemySpeed[count]
         if dy != 0: dy *= self.linEnemySpeed[count]
         self.boundGroup = pygame.sprite.Group()
-        for i in xrange(len(self.linEnemyBounds[count])):
+        for i in range(len(self.linEnemyBounds[count])):
             self.boundGroup.add(bound(self.linEnemyBounds[count][i],
                 (self.linEnemySpeed[count],self.linEnemySpeed[count])))
         self.linEnemyLocation[count][0] += dx
@@ -738,7 +738,7 @@ class gameMode(object):
     def initCoins(self):
         #creates the coins
         self.coinGroup = pygame.sprite.Group()
-        for i in xrange(len(self.coinLocs)):
+        for i in range(len(self.coinLocs)):
             self.coinGroup.add(coin(self.coinLocs[i]))
 
     def checkCollision(self):
@@ -748,7 +748,8 @@ class gameMode(object):
                 self.hitAnimation()
                 self.restart()
         if pygame.sprite.spritecollide(self.player, self.coinGroup, True):
-            self.ching.play()
+            #self.ching.play()
+            print("ching")
         count = 0
         for sprite in self.greenZoneGroup:
             if (pygame.sprite.collide_rect(self.player,sprite)):
@@ -772,12 +773,12 @@ class gameMode(object):
 
     def hitAnimation(self):
         """Animation if the player is hit by an enemy"""
-        self.hit.play()
+        #self.hit.play()
         self.playerRect = self.player.image.get_rect()
         self.playerRect = (self.playerLocation[0],self.playerLocation[1],
         self.playerRect[2],self.playerRect[3])
-        for i in xrange(self.maxAlpha,0,-1):
-            for j in xrange(self.hitAnimationSpeed):
+        for i in range(self.maxAlpha,0,-1):
+            for j in range(self.hitAnimationSpeed):
                 self.display.fill(self.backgroundColor,self.playerRect)
                 self.player.image.set_alpha(i)
                 self.drawBoard()
@@ -868,8 +869,8 @@ class levelEditor(object):
         self.cols = self.width / self.boardCellSize
         self.objectRows = self.height / self.objectCellSize
         self.objectCols = self.width / self.objectCellSize
-        self.board = [[[False,False] for i in xrange(self.cols)]
-            for i in xrange(self.rows)]
+        self.board = [[[False,False] for i in range(self.cols)]
+            for i in range(self.rows)]
         self.message = "Welcome to the World's Hardest Game Level Editor"
         self.myfont = pygame.font.SysFont("Arial", 30)
         self.player = None
@@ -924,14 +925,14 @@ class levelEditor(object):
         self.tempLinearData = []
 
     def initBoard(self):
-        for row in xrange(self.rows):
-            for col in xrange(self.cols):
+        for row in range(self.rows):
+            for col in range(self.cols):
                 xCoord = col * self.boardCellSize
                 yCoord = row * self.boardCellSize
                 if [xCoord,yCoord] in self.boardCoords:
                     self.board[row][col][0] = True
-        for row in xrange(self.rows):
-            for col in xrange(self.cols):
+        for row in range(self.rows):
+            for col in range(self.cols):
                 xCoord = col * self.boardCellSize
                 yCoord = row * self.boardCellSize
                 if [xCoord,yCoord] in self.greenZoneCoords:
@@ -942,7 +943,7 @@ class levelEditor(object):
         for location in self.linEnemyLocation:
             enemySprite = pygame.sprite.GroupSingle(enemy(location))
             self.linEnemyGroup.append(enemySprite)
-        for i in xrange(len(self.enemyCircles)):
+        for i in range(len(self.enemyCircles)):
             x0,y0 = self.enemyCircles[i][0]
             radius = self.enemyCircles[i][1][0]
             angle = self.cEnemyAngle[i]
@@ -1210,11 +1211,11 @@ class levelEditor(object):
                 self.tempLinear,thickness)
             pygame.draw.line(self.display,self.blue,
                 self.tempLinear[0],self.tempLinear[1],thickness)
-            for i in xrange(1,len(self.tempLinear)):
+            for i in range(1,len(self.tempLinear)):
                 pygame.draw.circle(self.display,self.black,
                     self.tempLinear[i],radius)
         if len(self.linEnemyBoundsDraw) > 0:
-            for i in xrange(len(self.linEnemyBoundsDraw)):
+            for i in range(len(self.linEnemyBoundsDraw)):
                 if len(self.linEnemyBoundsDraw[i]) > 1:
                     pygame.draw.lines(self.display,self.red,True,
                         self.linEnemyBoundsDraw[i],thickness)
@@ -1232,14 +1233,14 @@ class levelEditor(object):
     def drawCircularMotion(self):
         thickness = 5
         if len(self.enemyCircles) > 0:
-            for i in xrange(len(self.enemyCircles)):
+            for i in range(len(self.enemyCircles)):
                 radius = int(round(self.enemyCircles[i][1][0]))
                 centerX, centerY = self.enemyCircles[i][0]
                 center = (int(centerX),int(centerY))
                 pygame.draw.circle(self.display,self.red,
                     center,radius,thickness)
         if len(self.cEnemyCenter) > 0:
-            for i in xrange(len(self.cEnemyCenter)):
+            for i in range(len(self.cEnemyCenter)):
                 pygame.draw.circle(self.display,self.black,
                     self.cEnemyCenter[i],thickness)
 
@@ -1340,8 +1341,8 @@ class levelEditor(object):
 
     def clear(self):
         #clears all the data
-        self.board = [[[False,False] for i in xrange(self.cols)]
-            for i in xrange(self.rows)]
+        self.board = [[[False,False] for i in range(self.cols)]
+            for i in range(self.rows)]
         self.playerLocation = []
         self.playerSpeed = []
         self.linEnemyLocation = []
@@ -1636,8 +1637,8 @@ class levelEditor(object):
 
     def createBoard(self):
         #creates the grid
-        for row in xrange(self.rows):
-            for col in xrange(self.cols):
+        for row in range(self.rows):
+            for col in range(self.cols):
                 self.createCell(row, col)
 
     def createCell(self,row,col):
@@ -1654,8 +1655,8 @@ class levelEditor(object):
 
     def createObjectBoard(self):
         #creates the board for objects
-        for row in xrange(self.objectRows):
-            for col in xrange(self.objectCols):
+        for row in range(self.objectRows):
+            for col in range(self.objectCols):
                 self.createObjectCell(row, col)
 
     def createObjectCell(self,row,col):
@@ -1669,8 +1670,8 @@ class levelEditor(object):
         #adds all board coordinate data to self.boardCoords
         self.boardCoords = []
         self.greenZoneCoords = []
-        for row in xrange(self.rows):
-            for col in xrange(self.cols):
+        for row in range(self.rows):
+            for col in range(self.cols):
                 xPos = col * self.boardCellSize
                 yPos = row * self.boardCellSize
                 if self.board[row][col][0] == True:
@@ -1680,8 +1681,8 @@ class levelEditor(object):
 
     def findBorder(self):
         #finds the border of the board
-        for row in xrange(self.rows):
-            for col in xrange(self.cols):
+        for row in range(self.rows):
+            for col in range(self.cols):
                 if self.board[row][col][0] == True:
                     self.findBorderInDirection(row,col)
 
@@ -1791,10 +1792,10 @@ class readFileData(object):
         string = string.replace(")", "")
         string = string.replace("]", "")
         string = string.split("*")
-        for i in xrange(len(string)):
+        for i in range(len(string)):
             string[i] = string[i].split(",")
-        for i in xrange(len(string)):
-            for j in xrange(len(string[i])):
+        for i in range(len(string)):
+            for j in range(len(string[i])):
                 string[i][j] = int(string[i][j])
             string[i] = tuple(string[i])
         return string
@@ -1804,7 +1805,7 @@ class readFileData(object):
         string = string.replace("[","")
         string = string.replace("]","")
         string = string.split(",")
-        for i in xrange(len(string)):
+        for i in range(len(string)):
             string[i] = float(string[i])
         string = list(string)
         return string
@@ -1815,10 +1816,10 @@ class readFileData(object):
         string = string.replace("],","*")
         string = string.replace("]", "")
         string = string.split("*")
-        for i in xrange(len(string)):
+        for i in range(len(string)):
             string[i] = string[i].split(",")
-        for i in xrange(len(string)):
-            for j in xrange(len(string[i])):
+        for i in range(len(string)):
+            for j in range(len(string[i])):
                 string[i][j] = int(string[i][j])
             string[i] = list(string[i])
         return string
@@ -1834,12 +1835,12 @@ class readFileData(object):
         for i in string:
             temp.append(i.split("*"))
         string = copy.deepcopy(temp)
-        for i in xrange(len(string)):
-            for j in xrange(len(string[i])):
+        for i in range(len(string)):
+            for j in range(len(string[i])):
                 string[i][j] = string[i][j].split(",")
-        for i in xrange(len(string)):
-             for j in xrange(len(string[i])):
-                for k in xrange(len(string[i][j])):
+        for i in range(len(string)):
+             for j in range(len(string[i])):
+                for k in range(len(string[i][j])):
                     string[i][j][k] = float(string[i][j][k])
              string[i][j] = list(string[i][j])
         return string
